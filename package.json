@@ -1,0 +1,22 @@
+{
+  "name": "promise-file-jsify",
+  "date": "01-23-2017",
+  "description": "Convert html files into JavaScript text strings with promise flow control.",
+  "main": "promise-file-jsify.js",
+  "author": {
+    "name": "Scott Johnson"
+  },
+  "license": "MIT",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucentminds/promise-file-jsify.git"
+  },
+  "dependencies": {
+    "promise-file-read": "git+https://github.com/lucentminds/promise-file-read.git",
+    "q": ">=1.4.1"
+  }
+}
