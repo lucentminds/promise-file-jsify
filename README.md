@@ -1,4 +1,4 @@
-# promise-jsify
+# promise-file-jsify
 Convert html files into JavaScript text strings with promise flow control.
 
 
