@@ -9,14 +9,13 @@
   "license": "MIT",
   "version": "0.0.1",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=14.17.6"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/lucentminds/promise-file-jsify.git"
   },
   "dependencies": {
-    "promise-file-read": "git+https://github.com/lucentminds/promise-file-read.git",
-    "q": ">=1.4.1"
+    "promise-file-read": "git+https://github.com/lucentminds/promise-file-read.git"
   }
 }

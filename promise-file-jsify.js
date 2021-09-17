@@ -4,65 +4,54 @@
  * ~~ Scott Johnson
  */
 
+const read = require( 'promise-file-read' );
+const jsify = function( aSrc, lMinify ){
+    return new Promise(function( resolve, reject ){
+        var cSrcType = typeof aSrc;
 
-/** List jshint ignore directives here. **/
-/* jshint undef: true, unused: true */
-/* jslint node: true */
-/* global JSON:false */
+        switch( true ) {
+        case ( cSrcType === 'string' ):
+            aSrc = [aSrc];
+            break;
 
-var Q = require( 'q' );
-var read = require( 'promise-file-read' );
-var jsify = module.exports = function( aSrc, lMinify ){ // jshint ignore:line
-    var deferred = Q.defer();
-    var cSrcType = typeof aSrc;
+        case Array.isArray( aSrc ):
+            break;
 
-    switch( true ) {
-    case ( cSrcType === 'string' ):
-        aSrc = [aSrc];
-        break;
+        default:
+            return reject( 'Invalid source path argument: '.concat( aSrc ) );
 
-    case Array.isArray( aSrc ):
-        break;
+        }// /switch()
 
-    default:
-        deferred.reject( 'Invalid source path argument: '.concat( aSrc ) );
-        return deferred.promise;
-
-    }// /switch()
-
-    // Determines if we should also minify the content.
-    lMinify = lMinify || false;
+        // Determines if we should also minify the content.
+        lMinify = lMinify || false;
 
 
-    read( aSrc )
-    .then(function( aContent ){
-        var i, l = aContent.length;
+        read( aSrc )
+        .then(function( aContent ){
+            var i, l = aContent.length;
 
-        // Loop over each string.
-        for( i = 0; i < l; i++ ){
+            // Loop over each string.
+            for( i = 0; i < l; i++ ){
 
-            if( lMinify ){
-                aContent[ i ] = minify( aContent[ i ] );
+                if( lMinify ){
+                    aContent[ i ] = minify( aContent[ i ] );
+                }
+                else{
+                    aContent[ i ] = stringify( aContent[ i ] );
+                }
+            }// /for()
+
+
+
+            if( cSrcType === 'string' )  {
+                resolve( aContent[0] );
             }
-            else{
-                aContent[ i ] = stringify( aContent[ i ] );
+            else {
+                resolve( aContent );
             }
-        }// /for()
 
-
-
-        if( cSrcType === 'string' )  {
-            deferred.resolve( aContent[0] );
-        }
-        else {
-            deferred.resolve( aContent );
-        }
-
-    }).done();
-
-
-
-    return deferred.promise;
+        });
+    });
 };// /jsify()
 
 
@@ -78,3 +67,5 @@ var minify = function( cContent ){
 	cContent = cContent.replace( /\s+/g, ' ' );
 	return cContent;
 };// /minify()
+
+module.exports = jsify;

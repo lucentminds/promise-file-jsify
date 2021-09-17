@@ -13,7 +13,7 @@ npm install git+https://github.com/lucentminds/promise-file-jsify.git
 ### Useage:
 
 ```js
-var jsify = require( 'promise-file-jsify' );
+const jsify = require( 'promise-file-jsify' );
 
 jsify( './test1.txt', true )
 .then(function( cResult ){
